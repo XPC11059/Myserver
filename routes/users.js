@@ -1,18 +1,60 @@
 var express = require('express');
 var router = express.Router();
-// mysql数据库
+// 连接mysql数据库
 var mysql = require('mysql');
 var connection = mysql.createConnection({
     host     : 'localhost',
-    user     : 'XpcMySQl',
+    user     : 'xpc',
     password : 'xpc960928',
     database : 'my_db'
 });
 connection.connect();
+
+// 增
+// var  addSql = 'INSERT INTO user(name,age) VALUES (?,?)';
+// var  addSqlParams = [ 'jack', '23'];
+// connection.query(addSql,addSqlParams,function (err, result) {
+//     if (err){
+//         console.log(err.message);
+//         return;
+//     }
+//     console.log(result);
+// })
+// // 删
+// var  delSql = 'DELETE FROM user where id=11';
+// connection.query(delSql,function (err, result) {
+//     if (err){
+//         console.log(err.message);
+//         return;
+//     }
+//     console.log(result);
+// });
+// // 改
+// var modSql = 'UPDATE user SET name = ?,age = ? WHERE Id = ?';
+// var modSqlParams = ['tom', '3',10];
+// connection.query(modSql,modSqlParams,function (err, result) {
+//     if (err){
+//         console.log(err.message);
+//         return;
+//     }
+//     console.log(result);
+// });
+// 查询
+var userGet = 'SELECT * FROM user WHERE name="jack"';
+connection.query(userGet,function (err, result) {
+    if (err){
+        console.log(err.message);
+        return;
+    }
+    console.log(result)
+});
+
+
 connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
     if (error) throw error;
     console.log('The solution is: ', results[0].solution);
-})
+});
+
 connection.end();
 
 var dataSuccess = {
